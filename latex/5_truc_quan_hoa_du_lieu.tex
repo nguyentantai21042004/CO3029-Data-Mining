@@ -1,0 +1,153 @@
+\section{Trực quan hóa Dữ liệu}
+
+Sau khi dữ liệu đã được làm sạch và mô tả sơ bộ ở Phần 4, phần này nhóm em tập trung vào việc sử dụng các kỹ thuật trực quan hóa để khám phá sâu hơn về đặc điểm phân phối của dữ liệu, mối quan hệ giữa các biến, xu hướng theo thời gian và sự khác biệt giữa các nhóm. Mục tiêu là thu được những hiểu biết trực quan, làm nền tảng cho các phân tích và mô hình hóa ở các phần sau.
+
+
+\subsection{Trực quan hóa phân phối dữ liệu}
+
+Biểu đồ tần suất (histogram) và biểu đồ mật độ (density plot) được sử dụng để kiểm tra hình dạng phân phối của các biến số quan trọng. Điều này giúp xác định tính đối xứng, độ lệch (skewness), số lượng đỉnh (modality) và sự hiện diện của các giá trị ngoại lệ (outliers).
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.48\textwidth]{Images/hist_yield.png} 
+    \hfill
+    \includegraphics[width=0.48\textwidth]{Images/hist_rain.png}
+    
+    \vspace{0.5cm} % Khoảng cách giữa các hàng hình ảnh
+    
+    \includegraphics[width=0.48\textwidth]{Images/hist_pesticides.png}
+    \hfill
+    \includegraphics[width=0.48\textwidth]{Images/hist_temp.png}
+    \vspace{8pt}
+    \caption{Biểu đồ phân phối của Sản lượng (hg/ha), Lượng mưa trung bình (mm/năm), Lượng thuốc trừ sâu (tấn), và Nhiệt độ trung bình ($^\circ$C). Các biểu đồ cho thấy [Nhận xét sơ bộ: ví dụ, sản lượng và thuốc trừ sâu có phân phối lệch phải mạnh, trong khi nhiệt độ có vẻ gần đối xứng hơn...]}
+    \label{fig:distributions}
+\end{figure}
+
+% (Thêm diễn giải chi tiết hơn cho từng biểu đồ nếu cần, ví dụ: "Phân phối sản lượng cho thấy đa số các quan sát tập trung ở mức thấp, nhưng có một đuôi dài về phía giá trị cao, gợi ý sự khác biệt lớn về năng suất.")
+
+% --- 5.2 ---
+\subsection{Trực quan hóa mối quan hệ giữa các biến số}
+\label{subsec:viz_relationships}
+
+Để khám phá mối liên hệ giữa các biến, nhóm em sử dụng biểu đồ phân tán (scatter plot) cho từng cặp biến quan tâm và ma trận tương quan (correlation heatmap) để có cái nhìn tổng quan về các mối quan hệ tuyến tính.
+
+\subsubsection{Biểu đồ phân tán (Scatter Plots)}
+
+Biểu đồ phân tán là một công cụ trực quan mạnh mẽ để khám phá mối quan hệ giữa hai biến số liên tục. Mỗi điểm trên biểu đồ đại diện cho một quan sát, với vị trí được xác định bởi giá trị của hai biến. Bằng cách quan sát các mẫu hình trong các điểm, ta có thể xác định xem có mối tương quan nào tồn tại giữa các biến hay không, cũng như sức mạnh và hướng của mối tương quan đó
+
+% --- Hình 1: Sản lượng vs Nhiệt độ ---
+\begin{figure}[htb] 
+    \centering
+    % Có thể điều chỉnh width nếu muốn hình to/nhỏ hơn
+    \includegraphics[width=0.7\textwidth]{Images/scatter_yield_temp.png} 
+    \vspace{8pt}
+    \caption{Biểu đồ phân tán thể hiện mối quan hệ giữa Sản lượng (Crop\_Yield\_MT\_per\_HA) và Nhiệt độ trung bình (Average\_Temperature\_C).}
+    \label{fig:scatter_yield_temp} 
+\end{figure}
+
+% --- Hình 2: Sản lượng vs Lượng mưa ---
+\begin{figure}[htb] 
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/scatter_yield_rain.png}
+    \vspace{8pt}
+    \caption{Biểu đồ phân tán thể hiện mối quan hệ giữa Sản lượng (Crop\_Yield\_MT\_per\_HA) và Lượng mưa trung bình (Total\_Precipitation\_mm).}
+    \label{fig:scatter_yield_rain} % Label riêng cho hình này
+\end{figure}
+
+% --- Hình 3: Sản lượng vs Thuốc trừ sâu ---
+\begin{figure}[htb] 
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/scatter_yield_pesticides.png}
+    \vspace{8pt}
+    \caption{Biểu đồ phân tán thể hiện mối quan hệ giữa Sản lượng (Crop\_Yield\_MT\_per\_HA) và Lượng thuốc trừ sâu sử dụng (Pesticide\_Use\_KG\_per\_HA). Lưu ý: Trục hoành có thể được hiển thị bằng thang log tùy thuộc vào file ảnh được tạo.} 
+    \label{fig:scatter_yield_pesticides} %
+\end{figure}
+
+% --- Hình 4: Nhiệt độ vs Lượng mưa ---
+\begin{figure}[htb] 
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/scatter_temp_rain.png}
+    \vspace{8pt}
+    \caption{Biểu đồ phân tán thể hiện mối quan hệ giữa Nhiệt độ trung bình (Average\_Temperature\_C) và Lượng mưa trung bình (Total\_Precipitation\_mm).}
+    \label{fig:scatter_temp_rain} 
+\end{figure}
+
+\FloatBarrier 
+
+
+\subsubsection{Ma trận tương quan (Correlation Heatmap)}
+
+Ma trận tương quan cung cấp một cái nhìn tổng thể về cường độ và chiều hướng của mối quan hệ tuyến tính giữa tất cả các cặp biến số. Giá trị tương quan gần +1 cho thấy mối quan hệ đồng biến mạnh, gần -1 cho thấy mối quan hệ nghịch biến mạnh, và gần 0 cho thấy ít hoặc không có mối quan hệ tuyến tính.
+
+\begin{figure}[H]
+    \centering
+    % --- Chèn hình ảnh heatmap ma trận tương quan ---
+    \includegraphics[width=1\textwidth]{Images/correlation_heatmap.png}
+    \vspace{8pt}
+        \caption{Heatmap ma trận tương quan Pearson giữa các biến số chính (Year, hg/ha\_yield, average\_rain\_fall\_mm\_per\_year, pesticides\_tonnes, avg\_temp). Màu sắc và giá trị số thể hiện hệ số tương quan. [Nhận xét: ví dụ, Sản lượng (\texttt{hg/ha\_yield}) có tương quan dương đáng kể với Lượng thuốc trừ sâu (\texttt{pesticides\_tonnes}) và Năm (\texttt{Year}). Tương quan với nhiệt độ và lượng mưa yếu hơn ở cấp độ toàn cầu...]}
+    \label{fig:corr_matrix_detailed}
+\end{figure}
+
+Một trong những quan hệ nổi bật nhất là vai trò chi phối của yếu tố thời gian (\texttt{Year}). Nhiệt độ trung bình (\texttt{Average\_Temperature\_C}) thể hiện mối tương quan dương cực kỳ mạnh mẽ với Năm (+0.96), phản ánh một xu hướng nóng lên toàn cầu rõ ràng trong khoảng thời gian dữ liệu bao phủ. Việc sử dụng thuốc trừ sâu (\texttt{Pesticide\_Use\_KG\_per\_HA}) cũng cho thấy một xu hướng tăng mạnh mẽ tương tự theo thời gian (+0.79). Đồng thời, Sản lượng cây trồng (\texttt{Crop\_Yield\_MT\_per\_HA}) cũng có tương quan dương khá mạnh với Năm (+0.66), có thể là kết quả tổng hợp của nhiều yếu tố như tiến bộ công nghệ, cải thiện giống, và các yếu tố đầu vào khác. Ngược lại, Lượng mưa trung bình (\texttt{Total\_Precipitation\_mm}) dường như không có xu hướng thay đổi tuyến tính rõ rệt theo thời gian trong bộ dữ liệu này (-0.05).
+
+Khi xem xét các yếu tố liên quan trực tiếp đến Sản lượng, mối tương quan dương đáng kể nhất là với việc sử dụng Thuốc trừ sâu (+0.48). Mối liên hệ ở mức độ trung bình này cho thấy rằng, trong bộ dữ liệu này, việc sử dụng nhiều thuốc trừ sâu hơn thường đi kèm với sản lượng cao hơn. Tuy nhiên, điều quan trọng là phải thận trọng khi diễn giải mối quan hệ này do cả hai biến đều tăng theo thời gian. Ngược lại, các yếu tố khí hậu cốt lõi là Nhiệt độ và Lượng mưa lại thể hiện mối tương quan tuyến tính rất yếu với Sản lượng (lần lượt là -0.08 và +0.03). Sự yếu kém này không nhất thiết phủ nhận tầm quan trọng của khí hậu, mà có thể gợi ý rằng ảnh hưởng của chúng lên sản lượng là phi tuyến tính (ví dụ, tồn tại ngưỡng tối ưu) hoặc bị chi phối bởi các yếu tố mạnh mẽ khác khi xem xét ở quy mô tổng hợp.
+
+Một mối tương quan mạnh khác đáng chú ý là giữa Thuốc trừ sâu và Nhiệt độ (+0.78). Mối liên hệ này rất có thể bị ảnh hưởng mạnh bởi xu hướng tăng đồng thời của cả hai biến theo Năm, mặc dù không thể loại trừ khả năng nhiệt độ cao hơn làm tăng nhu cầu sử dụng thuốc trừ sâu do áp lực sâu bệnh gia tăng.
+
+
+
+% --- 5.3 ---
+\subsection{Trực quan hóa xu hướng theo thời gian}
+\label{subsec:viz_time_trends}
+
+Biểu đồ đường (line plot) được sử dụng để theo dõi sự thay đổi của các chỉ số quan trọng theo thời gian (biến `Year`). Điều này giúp xác định các xu hướng dài hạn hoặc các biến động bất thường.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Images/line_yield_year.png}
+    \hfill
+    % --- Chèn Line plot: Temp over Time ---
+    \includegraphics[width=0.48\textwidth]{Images/line_temp_year.png}
+    
+    \vspace{0.5cm}
+    
+    \includegraphics[width=0.48\textwidth]{Images/line_rain_year.png}
+     \hfill
+    \includegraphics[width=0.48\textwidth]{Images/line_pesticides_year.png}
+   \vspace{8pt}
+    \caption{Xu hướng thay đổi theo thời gian (1990-2013) của Sản lượng trung bình toàn cầu (trên trái), Nhiệt độ trung bình toàn cầu (trên phải), Lượng mưa trung bình toàn cầu (dưới trái), và Tổng lượng thuốc trừ sâu sử dụng (dưới phải). [Nhận xét: ví dụ, Có xu hướng tăng rõ rệt của sản lượng và nhiệt độ trung bình qua các năm. Lượng mưa biến động hơn nhưng không có xu hướng rõ ràng. Lượng thuốc trừ sâu...]}
+    \label{fig:time_series_plots}
+\end{figure}
+
+% --- 5.4 ---
+\subsection{Trực quan hóa so sánh giữa các nhóm}
+\label{subsec:viz_group_comparison}
+
+Để hiểu sự khác biệt giữa các quốc gia/khu vực (`Area`) hoặc giữa các loại cây trồng/vật nuôi (`Item`), nhóm em sử dụng biểu đồ cột (bar chart) để so sánh các giá trị trung bình và biểu đồ hộp (box plot) để xem xét sự phân bố.
+
+\begin{figure}[htb] 
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/bar_yield_country_top10.png} 
+    \vspace{8pt} 
+    \caption{So sánh Sản lượng trung bình (\texttt{Crop\_Yield\_MT\_per\_HA}): Top 10 quốc gia (\texttt{Country}) có năng suất cao nhất.}
+    \label{fig:bar_yield_country} 
+\end{figure}
+
+\begin{figure}[htb] 
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/bar_yield_item_top10.png}
+    \vspace{8pt}
+    \caption{So sánh Sản lượng trung bình (\texttt{Crop\_Yield\_MT\_per\_HA}): Top 10 loại cây trồng (\texttt{Crop\_Type}) có năng suất cao nhất.}
+    \label{fig:bar_yield_item} 
+     \vspace{10pt}
+\end{figure}
+
+
+ \FloatBarrier
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/boxplot_yield_region.png} 
+    \vspace{10pt}
+    \caption{ Biểu đồ hộp thể hiện phân bố Sản lượng (hg/ha) theo các khu vực địa lý chính. Biểu đồ cho thấy không chỉ giá trị trung bình (đường ngang trong hộp) mà còn cả độ phân tán (chiều dài hộp và râu) và các giá trị ngoại lệ (điểm). [Nhận xét: ví dụ, Khu vực X có năng suất trung bình cao nhất nhưng cũng biến động lớn nhất...]}
+    \label{fig:box_comparisons}
+\end{figure}

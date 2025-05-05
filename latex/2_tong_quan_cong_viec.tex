@@ -2,48 +2,48 @@
 
 \subsection{Giới thiệu về phương pháp luận}
 
-\hspace{0.5cm}Trong dự án này, chúng tôi áp dụng phương pháp luận CRISP-DM (Cross-Industry Standard Process for Data Mining) để thực hiện quá trình khai thác dữ liệu. Phương pháp này bao gồm 6 giai đoạn chính:
+\hspace{0.5cm}Trong dự án này, nhóm áp dụng phương pháp luận CRISP-DM (Cross-Industry Standard Process for Data Mining) để thực hiện quá trình khai thác dữ liệu về tác động của biến đổi khí hậu đến nông nghiệp. Phương pháp này bao gồm 6 giai đoạn chính:
 
 \begin{itemize}
-    \item \textbf{Hiểu biết về nghiệp vụ (Business Understanding):} Xác định mục tiêu và yêu cầu của dự án
-    \item \textbf{Hiểu biết về dữ liệu (Data Understanding):} Thu thập và phân tích dữ liệu ban đầu
-    \item \textbf{Chuẩn bị dữ liệu (Data Preparation):} Tiền xử lý và làm sạch dữ liệu
-    \item \textbf{Mô hình hóa (Modeling):} Xây dựng và đánh giá các mô hình
-    \item \textbf{Đánh giá (Evaluation):} Đánh giá kết quả và kiểm tra mục tiêu
-    \item \textbf{Triển khai (Deployment):} Triển khai và duy trì mô hình
+    \item \textbf{Hiểu biết về nghiệp vụ (Business Understanding):} Xác định mục tiêu phân tích tác động của biến đổi khí hậu đến nông nghiệp
+    \item \textbf{Hiểu biết về dữ liệu (Data Understanding):} Phân tích dữ liệu về khí hậu, nông nghiệp và các yếu tố liên quan
+    \item \textbf{Chuẩn bị dữ liệu (Data Preparation):} Tiền xử lý và làm sạch dữ liệu từ nhiều nguồn khác nhau
+    \item \textbf{Mô hình hóa (Modeling):} Xây dựng và đánh giá các mô hình dự đoán tác động
+    \item \textbf{Đánh giá (Evaluation):} Đánh giá kết quả và kiểm tra mục tiêu phân tích
+    \item \textbf{Triển khai (Deployment):} Triển khai các giải pháp và đề xuất chiến lược thích ứng
 \end{itemize}
 
 \subsection{Phương pháp tiếp cận}
 
-\hspace{0.5cm}Dự án sử dụng phương pháp tiếp cận dựa trên dữ liệu (Data-Driven Approach) để phân tích và dự đoán năng suất cây trồng. Các bước thực hiện bao gồm:
+\hspace{0.5cm}Dự án sử dụng phương pháp tiếp cận dựa trên dữ liệu (Data-Driven Approach) để phân tích và dự đoán tác động của biến đổi khí hậu đến nông nghiệp. Các bước thực hiện bao gồm:
 
 \begin{itemize}
     \item \textbf{Thu thập dữ liệu:}
     \begin{itemize}
-        \item Sử dụng các nguồn dữ liệu đa dạng (CSV, Excel)
-        \item Tích hợp dữ liệu từ nhiều nguồn khác nhau
-        \item Đảm bảo tính nhất quán và độ tin cậy của dữ liệu
+        \item Sử dụng dataset về tác động của biến đổi khí hậu đến nông nghiệp
+        \item Tích hợp dữ liệu về nhiệt độ, lượng mưa, khí thải CO2
+        \item Thu thập thông tin về năng suất cây trồng và các biện pháp thích ứng
     \end{itemize}
     
     \item \textbf{Tiền xử lý dữ liệu:}
     \begin{itemize}
         \item Xử lý dữ liệu thiếu và trùng lặp
-        \item Chuẩn hóa và mã hóa dữ liệu
-        \item Phát hiện và xử lý ngoại lệ
+        \item Chuẩn hóa các chỉ số môi trường và nông nghiệp
+        \item Xử lý ngoại lệ trong các chỉ số quan trọng
     \end{itemize}
     
     \item \textbf{Phân tích dữ liệu:}
     \begin{itemize}
-        \item Phân tích thống kê mô tả
-        \item Phân tích tương quan giữa các biến
-        \item Phân tích xu hướng theo thời gian
+        \item Phân tích xu hướng biến đổi khí hậu theo thời gian
+        \item Phân tích tương quan giữa các yếu tố khí hậu và năng suất
+        \item Đánh giá hiệu quả của các chiến lược thích ứng
     \end{itemize}
     
     \item \textbf{Xây dựng mô hình:}
     \begin{itemize}
-        \item Lựa chọn các thuật toán phù hợp
-        \item Huấn luyện và tối ưu hóa mô hình
-        \item Đánh giá hiệu suất mô hình
+        \item Phát triển mô hình dự đoán tác động của biến đổi khí hậu
+        \item Đánh giá hiệu quả của các biện pháp thích ứng
+        \item Dự báo xu hướng tác động trong tương lai
     \end{itemize}
 \end{itemize}
 
@@ -54,31 +54,31 @@
 \begin{itemize}
     \item \textbf{Phân tích thống kê:}
     \begin{itemize}
-        \item Thống kê mô tả (mean, median, mode, standard deviation)
-        \item Phân tích tương quan (correlation analysis)
-        \item Kiểm định giả thuyết (hypothesis testing)
+        \item Phân tích xu hướng thời gian (time series analysis)
+        \item Phân tích tương quan giữa các biến khí hậu
+        \item Kiểm định giả thuyết về tác động của biến đổi khí hậu
     \end{itemize}
     
     \item \textbf{Học máy:}
     \begin{itemize}
-        \item Học có giám sát (supervised learning)
-        \item Học không giám sát (unsupervised learning)
-        \item Học bán giám sát (semi-supervised learning)
+        \item Mô hình hồi quy để dự đoán năng suất
+        \item Phân cụm để phân loại vùng chịu tác động
+        \item Phân tích chuỗi thời gian để dự báo xu hướng
     \end{itemize}
     
     \item \textbf{Xử lý dữ liệu:}
     \begin{itemize}
-        \item Chuẩn hóa dữ liệu (MinMaxScaler)
-        \item Mã hóa one-hot (one-hot encoding)
-        \item Xử lý ngoại lệ (outlier detection)
+        \item Chuẩn hóa các chỉ số môi trường
+        \item Xử lý ngoại lệ trong dữ liệu khí hậu
+        \item Mã hóa các chiến lược thích ứng
     \end{itemize}
     
     \item \textbf{Trực quan hóa dữ liệu:}
     \begin{itemize}
-        \item Biểu đồ phân tán (scatter plots)
-        \item Biểu đồ đường (line plots)
-        \item Biểu đồ boxplot
-        \item Heatmap tương quan
+        \item Biểu đồ xu hướng biến đổi khí hậu
+        \item Bản đồ nhiệt độ và lượng mưa
+        \item Biểu đồ tương quan giữa các yếu tố
+        \item Biểu đồ phân bố tác động theo khu vực
     \end{itemize}
 \end{itemize}
 
@@ -89,53 +89,52 @@
 \begin{itemize}
     \item \textbf{Phân chia dữ liệu:}
     \begin{itemize}
-        \item Tập huấn luyện (training set)
-        \item Tập kiểm định (validation set)
-        \item Tập kiểm tra (test set)
+        \item Phân chia theo thời gian (train/validation/test)
+        \item Phân chia theo khu vực địa lý
+        \item Phân chia theo loại cây trồng
     \end{itemize}
     
     \item \textbf{Đánh giá mô hình:}
     \begin{itemize}
-        \item Độ chính xác (accuracy)
-        \item Precision và Recall
-        \item F1-score
-        \item RMSE (Root Mean Square Error)
-        \item MAE (Mean Absolute Error)
+        \item Độ chính xác trong dự đoán năng suất
+        \item Độ tin cậy của dự báo tác động
+        \item Khả năng giải thích của mô hình
     \end{itemize}
     
     \item \textbf{Kiểm chứng chéo:}
     \begin{itemize}
-        \item K-fold cross validation
-        \item Leave-one-out cross validation
+        \item Kiểm chứng theo thời gian
+        \item Kiểm chứng theo khu vực
+        \item Kiểm chứng theo loại cây trồng
     \end{itemize}
 \end{itemize}
 
 \subsection{Tính mới và đóng góp}
 
-\hspace{0.5cm}Dự án mang lại các đóng góp mới trong lĩnh vực khai thác dữ liệu nông nghiệp:
+\hspace{0.5cm}Dự án mang lại các đóng góp mới trong lĩnh vực phân tích tác động của biến đổi khí hậu:
 
 \begin{itemize}
-    \item \textbf{Phương pháp tích hợp dữ liệu:}
+    \item \textbf{Phương pháp phân tích:}
     \begin{itemize}
-        \item Tích hợp dữ liệu từ nhiều nguồn khác nhau
-        \item Xử lý tự động các vấn đề về dữ liệu
-        \item Đảm bảo tính nhất quán của dữ liệu
+        \item Tích hợp nhiều yếu tố khí hậu và nông nghiệp
+        \item Phân tích chi tiết theo khu vực và loại cây trồng
+        \item Đánh giá hiệu quả của các chiến lược thích ứng
     \end{itemize}
     
     \item \textbf{Cải tiến trong xử lý dữ liệu:}
     \begin{itemize}
-        \item Tự động phát hiện và xử lý ngoại lệ
-        \item Chuẩn hóa dữ liệu thông minh
-        \item Mã hóa dữ liệu phân loại hiệu quả
+        \item Xử lý thông minh các chỉ số môi trường
+        \item Chuẩn hóa dữ liệu theo đặc thù từng khu vực
+        \item Tích hợp dữ liệu từ nhiều nguồn khác nhau
     \end{itemize}
     
     \item \textbf{Ứng dụng thực tế:}
     \begin{itemize}
-        \item Dự đoán năng suất cây trồng
-        \item Phân tích ảnh hưởng của các yếu tố môi trường
-        \item Hỗ trợ ra quyết định trong nông nghiệp
+        \item Dự báo tác động của biến đổi khí hậu
+        \item Đề xuất chiến lược thích ứng hiệu quả
+        \item Hỗ trợ quyết định trong nông nghiệp
     \end{itemize}
 \end{itemize}
 
 \subsection*{Tóm Tắt}
-Phương pháp luận của dự án kết hợp các kỹ thuật khai thác dữ liệu hiện đại với quy trình CRISP-DM, tập trung vào việc xử lý và phân tích dữ liệu nông nghiệp. Các kỹ thuật được áp dụng bao gồm phân tích thống kê, học máy, và trực quan hóa dữ liệu, nhằm đạt được kết quả chính xác và có ý nghĩa thực tiễn. 
+Phương pháp luận của dự án tập trung vào việc phân tích tác động của biến đổi khí hậu đến nông nghiệp, kết hợp các kỹ thuật khai thác dữ liệu hiện đại với quy trình CRISP-DM. Các kỹ thuật được áp dụng bao gồm phân tích thống kê, học máy, và trực quan hóa dữ liệu, nhằm đạt được kết quả chính xác và có ý nghĩa thực tiễn trong việc đánh giá và ứng phó với biến đổi khí hậu trong nông nghiệp. 
