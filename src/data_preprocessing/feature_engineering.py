@@ -83,7 +83,7 @@ def create_dummy_variables(df: pd.DataFrame,
         
         # Get categorical columns if not specified
         if columns is None:
-            columns = df.select_dtypes(include=['object']).columns.tolist()
+            columns = ['Country', 'Region', 'Crop_Type', 'Adaptation_Strategies']
             
         # Check if columns exist
         missing_cols = [col for col in columns if col not in df.columns]
@@ -150,25 +150,45 @@ def process_numeric_columns(df: pd.DataFrame,
             
         df = df.copy()
         
-        # Get numeric columns
-        numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()
+        # Define columns to process and their specific treatments
+        numeric_columns = {
+            'Year': {'method': 'clip', 'min': 1990, 'max': 2024},  # Clip to valid year range
+            'Average_Temperature_C': {'method': 'iqr'},  # Use IQR method
+            'Total_Precipitation_mm': {'method': 'iqr'},  # Use IQR method
+            'CO2_Emissions_MT': {'method': 'iqr'},  # Use IQR method
+            'Crop_Yield_MT_per_HA': {'method': 'iqr'},  # Use IQR method
+            'Extreme_Weather_Events': {'method': 'clip', 'min': 0, 'max': 10},  # Clip to reasonable range
+            'Irrigation_Access_%': {'method': 'clip', 'min': 0, 'max': 100},  # Clip to percentage range
+            'Pesticide_Use_KG_per_HA': {'method': 'iqr'},  # Use IQR method
+            'Fertilizer_Use_KG_per_HA': {'method': 'iqr'},  # Use IQR method
+            'Soil_Health_Index': {'method': 'clip', 'min': 0, 'max': 100},  # Clip to index range
+            'Economic_Impact_Million_USD': {'method': 'iqr'}  # Use IQR method
+        }
         
         # Exclude specified columns
         if exclude_columns:
-            numeric_columns = [col for col in numeric_columns if col not in exclude_columns]
+            numeric_columns = {k: v for k, v in numeric_columns.items() if k not in exclude_columns}
             
-        for col in numeric_columns:
-            # Handle outliers using IQR method
-            Q1 = df[col].quantile(0.25)
-            Q3 = df[col].quantile(0.75)
-            IQR = Q3 - Q1
-            lower_bound = Q1 - 1.5 * IQR
-            upper_bound = Q3 + 1.5 * IQR
+        for col, treatment in numeric_columns.items():
+            if col not in df.columns:
+                continue
+                
+            if treatment['method'] == 'iqr':
+                # Handle outliers using IQR method
+                Q1 = df[col].quantile(0.25)
+                Q3 = df[col].quantile(0.75)
+                IQR = Q3 - Q1
+                lower_bound = Q1 - 1.5 * IQR
+                upper_bound = Q3 + 1.5 * IQR
+                
+                # Replace outliers with bounds
+                df[col] = df[col].clip(lower=lower_bound, upper=upper_bound)
+                
+            elif treatment['method'] == 'clip':
+                # Clip values to specified range
+                df[col] = df[col].clip(lower=treatment['min'], upper=treatment['max'])
             
-            # Replace outliers with bounds
-            df[col] = df[col].clip(lower=lower_bound, upper=upper_bound)
-            
-        logger.info(f"Successfully processed {len(numeric_columns)} numeric columns")
+        logger.info(f"Successfully processed numeric columns")
         return df
         
     except Exception as e:

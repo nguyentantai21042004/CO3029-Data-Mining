@@ -29,6 +29,25 @@ def handle_missing_values(df: pd.DataFrame,
         if columns is None:
             columns = df.columns
             
+        # Define column-specific strategies
+        column_strategies = {
+            'Year': 'drop',  # Drop missing years as they are critical
+            'Country': 'drop',  # Drop missing countries as they are critical
+            'Region': 'mode',  # Use most common region
+            'Crop_Type': 'mode',  # Use most common crop type
+            'Average_Temperature_C': 'mean',  # Use mean temperature
+            'Total_Precipitation_mm': 'mean',  # Use mean precipitation
+            'CO2_Emissions_MT': 'mean',  # Use mean emissions
+            'Crop_Yield_MT_per_HA': 'mean',  # Use mean yield
+            'Extreme_Weather_Events': 'median',  # Use median for count data
+            'Irrigation_Access_%': 'mean',  # Use mean for percentage
+            'Pesticide_Use_KG_per_HA': 'mean',  # Use mean for usage
+            'Fertilizer_Use_KG_per_HA': 'mean',  # Use mean for usage
+            'Soil_Health_Index': 'mean',  # Use mean for index
+            'Adaptation_Strategies': 'mode',  # Use most common strategy
+            'Economic_Impact_Million_USD': 'mean'  # Use mean for economic impact
+        }
+            
         for col in columns:
             if col not in df.columns:
                 logger.warning(f"src.data_preprocessing.clean_data.handle_missing_values: Column '{col}' not found in DataFrame")
@@ -38,19 +57,22 @@ def handle_missing_values(df: pd.DataFrame,
             if df[col].isna().sum() == 0:
                 continue
                 
+            # Use column-specific strategy if available
+            col_strategy = column_strategies.get(col, strategy)
+                
             # Handle numeric columns
             if pd.api.types.is_numeric_dtype(df[col]):
                 try:
-                    if strategy == 'mean':
+                    if col_strategy == 'mean':
                         df[col] = df[col].fillna(df[col].mean())
-                    elif strategy == 'median':
+                    elif col_strategy == 'median':
                         df[col] = df[col].fillna(df[col].median())
-                    elif strategy == 'mode':
+                    elif col_strategy == 'mode':
                         df[col] = df[col].fillna(df[col].mode()[0])
-                    elif strategy == 'drop':
+                    elif col_strategy == 'drop':
                         df = df.dropna(subset=[col])
                     else:
-                        logger.warning(f"src.data_preprocessing.clean_data.handle_missing_values: Invalid strategy '{strategy}' for numeric column '{col}'. Using 'mean' instead.")
+                        logger.warning(f"src.data_preprocessing.clean_data.handle_missing_values: Invalid strategy '{col_strategy}' for numeric column '{col}'. Using 'mean' instead.")
                         df[col] = df[col].fillna(df[col].mean())
                 except Exception as e:
                     logger.error(f"src.data_preprocessing.clean_data.handle_missing_values: Error processing numeric column '{col}': {str(e)}")
@@ -58,12 +80,12 @@ def handle_missing_values(df: pd.DataFrame,
             # Handle categorical columns
             else:
                 try:
-                    if strategy == 'mode':
+                    if col_strategy == 'mode':
                         df[col] = df[col].fillna(df[col].mode()[0])
-                    elif strategy == 'drop':
+                    elif col_strategy == 'drop':
                         df = df.dropna(subset=[col])
                     else:
-                        logger.warning(f"src.data_preprocessing.clean_data.handle_missing_values: Strategy '{strategy}' not valid for categorical column '{col}'. Using 'mode' instead.")
+                        logger.warning(f"src.data_preprocessing.clean_data.handle_missing_values: Strategy '{col_strategy}' not valid for categorical column '{col}'. Using 'mode' instead.")
                         df[col] = df[col].fillna(df[col].mode()[0])
                 except Exception as e:
                     logger.error(f"src.data_preprocessing.clean_data.handle_missing_values: Error processing categorical column '{col}': {str(e)}")

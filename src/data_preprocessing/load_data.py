@@ -23,20 +23,16 @@ def load_csv(file_path: str,
         logger.info(f"Attempting to load CSV file: {file_path}")
         
         # Define default numeric columns based on common patterns
-        default_numeric = ['value', 'avg', 'average', 'temp', 'rain', 'yield', 'tonnes']
+        default_numeric = [
+            'Year', 'Average_Temperature_C', 'Total_Precipitation_mm',
+            'CO2_Emissions_MT', 'Crop_Yield_MT_per_HA', 'Extreme_Weather_Events',
+            'Irrigation_Access_%', 'Pesticide_Use_KG_per_HA', 'Fertilizer_Use_KG_per_HA',
+            'Soil_Health_Index', 'Economic_Impact_Million_USD'
+        ]
         
-        # If numeric_columns not specified, try to detect numeric columns
+        # If numeric_columns not specified, use default
         if numeric_columns is None:
-            # Read first few rows to detect column types
-            df_sample = pd.read_csv(file_path, nrows=5)
-            numeric_columns = []
-            for col in df_sample.columns:
-                # Check if column name contains numeric indicators
-                if any(indicator in col.lower() for indicator in default_numeric):
-                    numeric_columns.append(col)
-                # Check if column values are numeric
-                elif pd.to_numeric(df_sample[col], errors='coerce').notna().all():
-                    numeric_columns.append(col)
+            numeric_columns = default_numeric
         
         # Load data with proper type conversion
         df = pd.read_csv(file_path)
@@ -78,14 +74,25 @@ def load_excel(file_path: str,
     try:
         logger.info(f"Attempting to load Excel file: {file_path}")
         
+        # Define default numeric columns
+        default_numeric = [
+            'Year', 'Average_Temperature_C', 'Total_Precipitation_mm',
+            'CO2_Emissions_MT', 'Crop_Yield_MT_per_HA', 'Extreme_Weather_Events',
+            'Irrigation_Access_%', 'Pesticide_Use_KG_per_HA', 'Fertilizer_Use_KG_per_HA',
+            'Soil_Health_Index', 'Economic_Impact_Million_USD'
+        ]
+        
+        # If numeric_columns not specified, use default
+        if numeric_columns is None:
+            numeric_columns = default_numeric
+        
         # Load data
         df = pd.read_excel(file_path, sheet_name=sheet_name)
         
         # Convert numeric columns
-        if numeric_columns:
-            for col in numeric_columns:
-                if col in df.columns:
-                    df[col] = pd.to_numeric(df[col], errors='coerce')
+        for col in numeric_columns:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors='coerce')
         
         # Convert date columns
         if date_columns:
